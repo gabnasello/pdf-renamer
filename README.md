@@ -54,6 +54,38 @@ The script renames it to:
 
 ## Installation
 
+**1. Clone the repo into a local folder**
+
+```bash
+git clone https://github.com/gabnasello/pdf-renamer.git
+cd pdf-renamer
+```
+
+**2. Create a virtual environment inside that folder**
+
+```bash
+python -m venv .venv
+```
+
+**3. Activate it**
+
+- macOS/Linux:
+  ```bash
+  source .venv/bin/activate
+  ```
+- Windows (PowerShell):
+  ```powershell
+  .venv\Scripts\Activate.ps1
+  ```
+- Windows (cmd):
+  ```cmd
+  .venv\Scripts\activate.bat
+  ```
+
+Your prompt should now show `(.venv)`. While it's active, `pip install` only affects this folder.
+
+**4. Install the dependencies**
+
 Install the required Python packages:
 
 ```bash
@@ -79,6 +111,26 @@ The script will:
 - Detect bioRxiv preprints
 - Automatically rename files
 - Print detailed diagnostics for every processed document
+
+Thanks, the script runs `os.chdir(SCRIPT_DIR)` at the top, so it always works on the folder it sits in, no matter where you launch it from. That means the batch file doesn't need the folder prompt from my last version. Here is the simplified one.
+
+**`run_pdfrename.bat`** (save it inside `pdf-renamer`, next to `pdf_renamer.py` and `.venv`):
+
+```bat
+@echo off
+cd /d "%~dp0"
+call ".venv\Scripts\activate.bat"
+python pdf_renamer.py
+echo.
+echo Done.
+pause
+```
+
+**Alternative use: `run_pdfrename.bat`**
+
+1. Drop the PDFs you want renamed into the `pdf-renamer` folder.
+2. Double-click `run_pdfrename.bat`.
+3. Read the output in the window, then press any key to close it.
 
 ## Requirements
 
